@@ -1,4 +1,4 @@
-const BACKEND_URL = import.meta.env.BACKEND_URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 import { useEffect, useState } from "react"
 import axios from 'axios'
 import io from 'socket.io-client'
@@ -39,8 +39,9 @@ export default function Admin() {
   const [agentShow,setAgentShow] = useState(null)
   useEffect(()=>{
     const fetchUser = async()=>{
-      try{
+      try {
         const res = await axios.post(BACKEND_URL,{token : token})
+
         if(res.status === 200){
           if(res.data.role === 'Admin'){
             setAdmin(res.data.admin)
@@ -55,14 +56,26 @@ export default function Admin() {
     }
     fetchUser()
   },[])
-  useEffect(()=>{
-    if(admin && admin._id){
-    const socket = io(BACKEND_URL, { query: { userId: `Admin-${admin._id}` },
-      withCredentials: true, transports: ["websocket"] })
-    socket.on('message', (message) => {console.log(message)})
+  useEffect(() => {
+    if (admin && admin._id) {
+      const socket = io(BACKEND_URL, {
+        query: { userId: `Admin-${admin._id}` },
+        withCredentials: true,
+        transports: ["websocket", "polling"], // Ensure both WebSockets and polling work
+      });
 
-    return () => {socket.disconnect()}
-}},[admin])
+      socket.on("connect", () => console.log("Connected to WebSocket!"));
+      socket.on("message", (message) => console.log(message));
+      socket.on("disconnect", () => console.log("Socket disconnected from client side"));
+
+      return () => {
+        console.log("Closing socket connection from frontend...");
+        socket.disconnect();
+      };
+    }
+  }, [admin]);
+
+
   const assignAllTasks = async()=>{
     try{
       const res = await axios.post(`${BACKEND_URL}/CRUD_Task`,{admin : admin._id,type:"assign all tasks"})

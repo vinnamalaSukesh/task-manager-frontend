@@ -1,4 +1,4 @@
-const BACKEND_URL = import.meta.env.BACKEND_URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 import useAdmin from "@/store/admin"
 import useTasks from "@/store/task";
 import axios from "axios"

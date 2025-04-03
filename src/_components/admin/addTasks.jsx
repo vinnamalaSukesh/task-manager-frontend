@@ -1,4 +1,4 @@
-const BACKEND_URL = import.meta.env.BACKEND_URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useRef, useState } from 'react'
 import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
