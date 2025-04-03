@@ -1,7 +1,6 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 import { useEffect, useState } from "react"
 import axios from 'axios'
-import io from 'socket.io-client'
 
 import useAdmin from "@/store/admin"
 import useAgent from "@/store/agents"
@@ -56,25 +55,6 @@ export default function Admin() {
     }
     fetchUser()
   },[])
-  useEffect(() => {
-    if (admin && admin._id) {
-      const socket = io(BACKEND_URL, {
-        query: { userId: `Admin-${admin._id}` },
-        withCredentials: true,
-        transports: ["websocket", "polling"], // Ensure both WebSockets and polling work
-      });
-
-      socket.on("connect", () => console.log("Connected to WebSocket!"));
-      socket.on("message", (message) => console.log(message));
-      socket.on("disconnect", () => console.log("Socket disconnected from client side"));
-
-      return () => {
-        console.log("Closing socket connection from frontend...");
-        socket.disconnect();
-      };
-    }
-  }, [admin]);
-
 
   const assignAllTasks = async()=>{
     try{

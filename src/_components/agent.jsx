@@ -130,7 +130,7 @@ export default function Agent() {
                         <div className="w-full">
                             <p className="relative left-5 top-2 bg-white dark:bg-black w-min text-blue-950 dark:text-blue-200 font-bold z-2">Status</p>
                             <select value={status} onChange={(e) => setStatus(e.target.value)} disabled={!edit} className="text-black dark:text-white p-3 shadow-[0px_0px_3px_black] dark:shadow-[0px_0px_3px_white] w-full rounded-sm px-5 disabled:opacity-80 disabled:dark:opacity-70 disabled:bg-gray-100 disabled:dark:bg-gray-800 disabled:text-gray-700 disabled:dark:text-gray-400">
-                                <option value='Not assigned' className="dark:text-white dark:bg-black">Not assigned</option>
+                                <option value='Not started' className="dark:text-white dark:bg-black">Not started</option>
                                 <option value='In progress' className="dark:text-white dark:bg-black">In progress</option>
                                 <option value='Struck in error' className="dark:text-white dark:bg-black">Struck in error</option>
                                 <option value='Completed' className="dark:text-white dark:bg-black">Completed</option>
