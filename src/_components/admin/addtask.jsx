@@ -1,3 +1,4 @@
+const BACKEND_URL = import.meta.env.BACKEND_URL
 import useAdmin from "@/store/admin"
 import useTasks from "@/store/task";
 import axios from "axios"
@@ -15,7 +16,7 @@ export default function Addtask({ setAddTask }){
 
     const handleSave = async()=>{
         try{
-            const res = await axios.post('http://localhost:3000/CRUD_Task',{admin,name,phone,notes,type:'create'})
+            const res = await axios.post(`${BACKEND_URL}/CRUD_Task`,{admin,name,phone,notes,type:'create'})
             if(res.status === 200){
                 setAddTask(false)
                 setName("")

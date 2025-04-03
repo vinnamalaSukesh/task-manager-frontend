@@ -1,3 +1,4 @@
+const BACKEND_URL = import.meta.env.BACKEND_URL
 import { useState } from "react"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -16,7 +17,7 @@ export default function LoginRegister() {
     const handleSubmit = async() => {
         if (form === "Login") {
             try {
-                const res = await axios.post('http://localhost:3000/Login', { email, pwd,type : option})
+                const res = await axios.post(`${BACKEND_URL}/Login`, { email, pwd,type : option})
                 if (res.status === 200) {
                     localStorage.setItem('token', res.data.token)
                     if(res.data.role === 'Admin')
@@ -34,7 +35,7 @@ export default function LoginRegister() {
         }
         else if (form === "Register") {
             try {
-                const res = await axios.post('http://localhost:3000/Register', { uname,email, pwd })
+                const res = await axios.post(`${BACKEND_URL}/Register`, { uname,email, pwd })
                 if (res.status === 200) {
                     window.location.reload()
                 }

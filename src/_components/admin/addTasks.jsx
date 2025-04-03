@@ -1,3 +1,4 @@
+const BACKEND_URL = import.meta.env.BACKEND_URL
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useRef, useState } from 'react'
 import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
@@ -49,7 +50,7 @@ function AddTasks({ setAddTasks }) {
   }
   const handleSave = async()=>{
     try{
-      const res = await axios.post('http://localhost:3000/CRUD_Task',{admin,tasks:data,type:"insert multiple tasks"})
+      const res = await axios.post(`${BACKEND_URL}/CRUD_Task`,{admin,tasks:data,type:"insert multiple tasks"})
       if(res.status === 200){
         addTasks(res.data.tasks)
         setAdminTasks(res.data.taskIds)

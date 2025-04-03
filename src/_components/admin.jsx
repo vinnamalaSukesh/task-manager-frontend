@@ -1,3 +1,4 @@
+const BACKEND_URL = import.meta.env.BACKEND_URL
 import { useEffect, useState } from "react"
 import axios from 'axios'
 import io from 'socket.io-client'
@@ -39,7 +40,7 @@ export default function Admin() {
   useEffect(()=>{
     const fetchUser = async()=>{
       try{
-        const res = await axios.post('http://localhost:3000/',{token : token})
+        const res = await axios.post(BACKEND_URL,{token : token})
         if(res.status === 200){
           if(res.data.role === 'Admin'){
             setAdmin(res.data.admin)
@@ -56,7 +57,7 @@ export default function Admin() {
   },[])
   useEffect(()=>{
     if(admin && admin._id){
-    const socket = io('http://localhost:3000', { query: { userId: `Admin-${admin._id}` },
+    const socket = io(BACKEND_URL, { query: { userId: `Admin-${admin._id}` },
       withCredentials: true, transports: ["websocket"] })
     socket.on('message', (message) => {console.log(message)})
 
@@ -64,7 +65,7 @@ export default function Admin() {
 }},[admin])
   const assignAllTasks = async()=>{
     try{
-      const res = await axios.post('http://localhost:3000/CRUD_Task',{admin : admin._id,type:"assign all tasks"})
+      const res = await axios.post(`${BACKEND_URL}/CRUD_Task`,{admin : admin._id,type:"assign all tasks"})
       if(res.status === 200){
         setAdminTasks([])
         setAgents(res.data.agents)

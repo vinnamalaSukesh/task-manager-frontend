@@ -1,3 +1,4 @@
+const BACKEND_URL = import.meta.env.BACKEND_URL
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import useAdmin from "@/store/admin";
 import useAgent from "@/store/agents";
@@ -68,7 +69,7 @@ export default function AgentTasks({ tasks,agentId }) {
     }
     const handleDelete = async () => {
         try{
-            const res = await axios.post('http://localhost:3000/CRUD_Task',{type:'delete',id:taskDetails._id})
+            const res = await axios.post(`${BACKEND_URL}/CRUD_Task`,{type:'delete',id:taskDetails._id})
             if(res.status === 200){
                 removeAgentTask(agentId,taskDetails._id)
                 removeTask(taskDetails._id)

@@ -1,4 +1,4 @@
-
+const BACKEND_URL = import.meta.env.BACKEND_URL
 import { useEffect, useMemo, useState } from "react"
 import axios from 'axios'
 import useLoginAgent from "@/store/Agent"
@@ -23,7 +23,7 @@ export default function Agent() {
 
     const handleSave = async()=>{
         try{
-            const res = await axios.post('http://localhost:3000/CRUD_Task',{type:'status update',taskId:id,Status:status,Notes:notes})
+            const res = await axios.post(`${BACKEND_URL}/CRUD_Task`,{type:'status update',taskId:id,Status:status,Notes:notes})
             if(res.status === 200){
                 updateTask(res.data.task)
                 setPop(false)
@@ -55,7 +55,7 @@ export default function Agent() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await axios.post('http://localhost:3000/', { token: token })
+                const res = await axios.post(BACKEND_URL, { token: token })
                 if (res.status === 200) {
                     setAgent(res.data.agent)
                 }

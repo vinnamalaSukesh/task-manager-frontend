@@ -1,3 +1,4 @@
+const BACKEND_URL = import.meta.env.BACKEND_URL
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
@@ -15,7 +16,7 @@ function AgentShow({agent,setAgentShow}) {
     const handleSave = async()=>{
         try{
             const Agent = {Id:agent._id,Name:name,Phone:phone,email:email}
-            const res = await axios.post('http://localhost:3000/CRUD_Agent',{type:'update',agent:Agent})
+            const res = await axios.post(`${BACKEND_URL}/CRUD_Agent`,{type:'update',agent:Agent})
 
             if(res.status === 200){
                 updateAgent(res.data.agent)
@@ -27,7 +28,7 @@ function AgentShow({agent,setAgentShow}) {
     }
     const handleDelete = async()=>{
         try{
-        const res = await axios.post('http://localhost:3000/CRUD_Agent',{type:'delete',Id:agent._id})
+        const res = await axios.post(`${BACKEND_URL}/CRUD_Agent`,{type:'delete',Id:agent._id})
         if(res.status === 200){
         deleteAgent(agent._id)
         setEdit(false)

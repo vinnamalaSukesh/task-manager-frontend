@@ -1,3 +1,4 @@
+const BACKEND_URL = import.meta.env.BACKEND_URL
 import useAdmin from "@/store/admin"
 import useAgent from "@/store/agents";
 import axios from "axios"
@@ -16,7 +17,7 @@ function AddAgent({ setAddAgent }) {
 
     const handleSave = async()=>{
         try{
-            const res = await axios.post('http://localhost:3000/CRUD_Agent',{admin,uname,email,phone,pwd,type:'create'})
+            const res = await axios.post(`${BACKEND_URL}/CRUD_Agent`,{admin,uname,email,phone,pwd,type:'create'})
             if(res.status === 200){
                 setAddAgent(false)
                 setUname("")

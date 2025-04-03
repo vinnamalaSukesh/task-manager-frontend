@@ -1,3 +1,4 @@
+const BACKEND_URL = import.meta.env.BACKEND_URL
 import useAdmin from "@/store/admin"
 import useAgent from "@/store/agents"
 import useTasks from "@/store/task"
@@ -53,7 +54,7 @@ export default function NotAssignedTasks({tasks}) {
     }
     const handleDelete = async()=>{
       try{
-        const res = await axios.post('http://localhost:3000/CRUD_Task',{type:'delete',id})
+        const res = await axios.post(`${BACKEND_URL}/CRUD_Task`,{type:'delete',id})
         if(res.status === 200){
           removeAdminTask(id)
           removeTask(id)
